@@ -22,6 +22,16 @@ const writeData = (data) => {
   }
 };
 
+app.get('/plants', async (req, res) => {
+  try {
+      const response = await axios.get('https://trefle.io/api/v1/plants?token=dFyYL65yF8C_M9Y7ArXytbxj5olI0-Sw7wfmy5klD5o');
+      res.json(response.data);
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Error al obtener datos de las plantas.' });
+  }
+});
+
 app.get("/", (req, res) => {
   res.send("Welcome to my first API with Node js!");
 });
