@@ -28,9 +28,19 @@ const writeData = (data) => {
 
 app.get('/plants', async (req, res) => {
   try {
-      const response = await axios.get('https://trefle.io/api/v1/plants?token=dFyYL65yF8C_M9Y7ArXytbxj5olI0-Sw7wfmy5klD5o');
+      // Obtener el valor del parámetro 'page' de la solicitud del cliente
+      const page = req.query.page;
+
+      // Construir la URL de la solicitud a la API de Trefle con el parámetro 'page'
+      const url = `https://trefle.io/api/v1/plants?token=dFyYL65yF8C_M9Y7ArXytbxj5olI0-Sw7wfmy5klD5o&page=${page}`;
+
+      // Realizar la solicitud a la API de Trefle
+      const response = await axios.get(url);
+
+      // Enviar la respuesta de la API de Trefle al cliente
       res.json(response.data);
   } catch (error) {
+      // Manejar cualquier error que ocurra durante la solicitud
       console.error(error);
       res.status(500).json({ message: 'Error al obtener datos de las plantas.' });
   }
